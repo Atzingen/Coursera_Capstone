@@ -1,0 +1,849 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{ProjectCapstone}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{new-bussines-location-indicator}{%
+\section{New bussines location
+indicator}\label{new-bussines-location-indicator}}
+
+\hypertarget{coursera-project-capstone}{%
+\subsection{Coursera project capstone}\label{coursera-project-capstone}}
+
+This is the course captstone project for the coursera IBM machine
+learning specialization
+
+\hypertarget{about-the-project}{%
+\subsection{About the project}\label{about-the-project}}
+
+Having a good location for your business is an important factor for it's
+prosperity. Although the hot spots in a city for a new venue are common
+knowledge, usually this places have a very high price given that it is
+correlated with higher demand. With some datamining and machine
+learning, some places cam be discovered as good opportunity's that have
+not yet received enought attention from people on the business.
+
+This project uses python and some very helpfull libraries for machine
+learning, visualization and data colection, to give some insight on
+where you should open your business in a city, based on how ``hot'' the
+area is and how many competidors are on the same busines type, trying to
+maximize the fist and minimase the last. For the case study, the city
+chosen was Piracicaba, Brazil and the business type is a coffe shop, to
+the goal was to find a good place for a new coffe shop that has good
+location but not many competidors.
+
+To achive this objective we will start by ranking the places in city by
+how `hot' they are for business and them finding what is the optimal
+place for a new business that does not collide with other similar
+business by location but also is on a ``hot spot'' in the city.
+
+The data on the amount of venues by location will be collected using the
+foursquare api for a given city. The app/notebook will be created in a
+generic way so that people using it can change the city name. A map of
+the city based on the amount of venues will be created and also another
+one for the similar venues as the person is looking to create.
+
+A score for a given location that will be created by adding value for
+number of venues using mahalanobis distance as a weight and the using
+the opposite (decreasing score) by having similar venues. In the end,
+points will be clustered together to have useful locations as a
+suggestion for the new business to be opened.
+
+    \hypertarget{structure}{%
+\subsubsection{Structure:}\label{structure}}
+
+This notebook is 6 parts:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Interest area organization.
+
+  In this part, we will select the city and area of search as well as
+  basic visualization, libraries imports and api/requests setup.
+\item
+  Data Gattering
+
+  Using the fourshared api, we will get the data we need.
+\item
+  Data organization and cleanup
+
+  Here we will treat the received data to be able to use it for
+  visualization and the final machine learnig stage
+\item
+  Clustering
+
+  We will find how many groups of coffe shop are there in the city by
+  location and explore it also for the general venues.
+\item
+  Ranking
+
+  Two scores, ranging from 0 to 100 will be created, and all positions
+  on the city map will recieve this scores, one for ammount of venues
+  (high is better - more general venues) and one for ammount of
+  competition (high is worst - more coffe shops around).
+\end{enumerate}
+
+    \hypertarget{lets-start-by-importing-the-libraries-we-will-need}{%
+\subsubsection{Let's start by importing the libraries we will
+need}\label{lets-start-by-importing-the-libraries-we-will-need}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{folium}\PY{o}{,} \PY{n+nn}{requests}\PY{o}{,} \PY{n+nn}{os}\PY{o}{,} \PY{n+nn}{time}\PY{o}{,} \PY{n+nn}{itertools}\PY{o}{,} \PY{n+nn}{pickle}
+        \PY{k+kn}{import} \PY{n+nn}{folium}\PY{n+nn}{.}\PY{n+nn}{plugins} \PY{k}{as} \PY{n+nn}{plugins}
+        \PY{k+kn}{from} \PY{n+nn}{bs4} \PY{k}{import} \PY{n}{BeautifulSoup}
+        \PY{k+kn}{from} \PY{n+nn}{urllib}\PY{n+nn}{.}\PY{n+nn}{request} \PY{k}{import} \PY{n}{urlopen}
+        \PY{k+kn}{from} \PY{n+nn}{geopy}\PY{n+nn}{.}\PY{n+nn}{geocoders} \PY{k}{import} \PY{n}{Nominatim}
+        \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{Image}
+        \PY{k+kn}{from} \PY{n+nn}{dotenv} \PY{k}{import} \PY{n}{load\PYZus{}dotenv}
+\end{Verbatim}
+
+
+    \hypertarget{interest-area-organization}{%
+\subsection{1. Interest area
+organization}\label{interest-area-organization}}
+
+    \hypertarget{defining-the-place-of-interest-and-search-area}{%
+\subsubsection{Defining the place of interest and search
+area}\label{defining-the-place-of-interest-and-search-area}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} this will be our center point in the city}
+         \PY{n}{lat\PYZus{}city\PYZus{}center}\PY{p}{,} \PY{n}{lng\PYZus{}city\PYZus{}center} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mf}{22.727482}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{47.648811}
+         
+         \PY{c+c1}{\PYZsh{} now, create a map with this lat and lng info}
+         \PY{n}{map\PYZus{}city} \PY{o}{=} \PY{n}{folium}\PY{o}{.}\PY{n}{Map}\PY{p}{(}\PY{n}{location}\PY{o}{=}\PY{p}{[}\PY{n}{lat\PYZus{}city\PYZus{}center}\PY{p}{,} \PY{n}{lng\PYZus{}city\PYZus{}center}\PY{p}{]}\PY{p}{,} \PY{n}{zoom\PYZus{}start}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{)}
+         \PY{n}{folium}\PY{o}{.}\PY{n}{CircleMarker}\PY{p}{(}
+                 \PY{p}{[}\PY{n}{lat\PYZus{}city\PYZus{}center}\PY{p}{,} \PY{n}{lng\PYZus{}city\PYZus{}center}\PY{p}{]}\PY{p}{,}
+                 \PY{n}{radius}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,}
+                 \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{n}{fill}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}
+                 \PY{n}{fill\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{n}{fill\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.7}\PY{p}{,}
+                 \PY{n}{parse\PYZus{}html}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}to}\PY{p}{(}\PY{n}{map\PYZus{}city}\PY{p}{)}  
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} <folium.vector\_layers.CircleMarker at 0x16370503f60>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{} check if it is correct}
+         \PY{n}{map\PYZus{}city}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} <folium.folium.Map at 0x16370503ef0>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} Defining the search grid size and location}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{number\PYZus{}x\PYZus{}points} \PY{o}{=} \PY{l+m+mi}{10}
+         \PY{n}{number\PYZus{}y\PYZus{}points} \PY{o}{=} \PY{l+m+mi}{10}
+         
+         \PY{n}{lat\PYZus{}city\PYZus{}center}\PY{p}{,} \PY{n}{lng\PYZus{}city\PYZus{}center} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mf}{22.727482}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{47.648811}
+         \PY{c+c1}{\PYZsh{} the farthest point of interest in the map}
+         \PY{n}{x\PYZus{}max}\PY{p}{,} \PY{n}{y\PYZus{}max} \PY{o}{=}  \PY{o}{\PYZhy{}}\PY{l+m+mf}{22.713566}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{47.659758}
+         
+         \PY{c+c1}{\PYZsh{} now we create a distance range in lat and lng distance measure}
+         \PY{n}{lat\PYZus{}delta} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{x\PYZus{}max} \PY{o}{\PYZhy{}} \PY{n}{lat\PYZus{}city\PYZus{}center}\PY{p}{)}
+         \PY{n}{lng\PYZus{}delta} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{y\PYZus{}max} \PY{o}{\PYZhy{}} \PY{n}{lng\PYZus{}city\PYZus{}center}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{} create the matrix of points for use in the map and foursquare}
+         \PY{n}{lat\PYZus{}range} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{lat\PYZus{}city\PYZus{}center} \PY{o}{\PYZhy{}} \PY{n}{lat\PYZus{}delta}\PY{p}{,} \PY{n}{lat\PYZus{}city\PYZus{}center} \PY{o}{+} \PY{n}{lat\PYZus{}delta}\PY{p}{,} \PY{n}{number\PYZus{}x\PYZus{}points}\PY{p}{)}
+         \PY{n}{lng\PYZus{}range} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{lng\PYZus{}city\PYZus{}center} \PY{o}{\PYZhy{}} \PY{n}{lng\PYZus{}delta}\PY{p}{,} \PY{n}{lng\PYZus{}city\PYZus{}center} \PY{o}{+} \PY{n}{lng\PYZus{}delta}\PY{p}{,} \PY{n}{number\PYZus{}y\PYZus{}points}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{lat\PYZus{}range}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} array([-22.755314  , -22.74912911, -22.74294422, -22.73675933,
+                -22.73057444, -22.72438956, -22.71820467, -22.71201978,
+                -22.70583489, -22.69965   ])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{k}{for} \PY{n}{lat} \PY{o+ow}{in} \PY{n}{lat\PYZus{}range}\PY{p}{:}
+             \PY{k}{for} \PY{n}{lng} \PY{o+ow}{in} \PY{n}{lng\PYZus{}range}\PY{p}{:}
+                 \PY{n}{folium}\PY{o}{.}\PY{n}{CircleMarker}\PY{p}{(}
+                     \PY{p}{[}\PY{n}{lat}\PY{p}{,} \PY{n}{lng}\PY{p}{]}\PY{p}{,}
+                     \PY{n}{radius}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,}
+                     \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                     \PY{n}{fill}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}
+                     \PY{n}{fill\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                     \PY{n}{fill\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.7}\PY{p}{,}
+                     \PY{n}{parse\PYZus{}html}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}to}\PY{p}{(}\PY{n}{map\PYZus{}city}\PY{p}{)}
+         \PY{n}{map\PYZus{}city}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} <folium.folium.Map at 0x16370503ef0>
+\end{Verbatim}
+            
+    whe can see that we have covered most of the city with every point at
+around 200m from each other
+
+    \hypertarget{data-gattering}{%
+\subsection{2. Data Gattering}\label{data-gattering}}
+
+    \hypertarget{requesting-the-data-from-the-location-with-foursquare-api}{%
+\subsubsection{Requesting the data from the location with foursquare
+api}\label{requesting-the-data-from-the-location-with-foursquare-api}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{} Client ID and cliet secret key shoud never be stored in the notebook or other script,}
+         \PY{c+c1}{\PYZsh{} so we read it from os enviroment variable. }
+         \PY{n}{load\PYZus{}dotenv}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{VERSION} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20180605}\PY{l+s+s1}{\PYZsq{}} \PY{c+c1}{\PYZsh{} Foursquare API version}
+         
+         \PY{n}{CLIENT\PYZus{}ID} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{getenv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CLIENT\PYZus{}ID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}          \PY{c+c1}{\PYZsh{} your Foursquare ID}
+         \PY{n}{CLIENT\PYZus{}SECRET} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{getenv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CLIENT\PYZus{}SECRET}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}  \PY{c+c1}{\PYZsh{} your Foursquare Secret}
+\end{Verbatim}
+
+
+    Creating some help functions to get and treat the data received
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{k}{def} \PY{n+nf}{get\PYZus{}info}\PY{p}{(}\PY{n}{lat}\PY{p}{,} \PY{n}{lng}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{    This function call foursquare api with given lattitude and longtude and}
+         \PY{l+s+sd}{    returns the api response as }
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{n}{url} \PY{o}{=} \PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://api.foursquare.com/v2/venues/search?\PYZam{}client\PYZus{}id=}\PY{l+s+si}{\PYZob{}CLIENT\PYZus{}ID\PYZcb{}}\PY{l+s+s1}{\PYZam{}client\PYZus{}secret=}\PY{l+s+si}{\PYZob{}CLIENT\PYZus{}SECRET\PYZcb{}}\PY{l+s+s1}{\PYZam{}v=}\PY{l+s+si}{\PYZob{}VERSION\PYZcb{}}\PY{l+s+s1}{\PYZam{}ll=}\PY{l+s+si}{\PYZob{}lat\PYZcb{}}\PY{l+s+s1}{,}\PY{l+s+si}{\PYZob{}lng\PYZcb{}}\PY{l+s+s1}{\PYZam{}radius=}\PY{l+s+si}{\PYZob{}250\PYZcb{}}\PY{l+s+s1}{\PYZam{}limit=}\PY{l+s+si}{\PYZob{}500\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}
+             \PY{n}{results} \PY{o}{=} \PY{n}{requests}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{n}{url}\PY{p}{)}\PY{o}{.}\PY{n}{json}\PY{p}{(}\PY{p}{)}
+             \PY{k}{if} \PY{n}{results}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{meta}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{code}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{200}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{results}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{response}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{k}{return} \PY{k+kc}{False}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{k}{def} \PY{n+nf}{count\PYZus{}venues}\PY{p}{(}\PY{n}{response}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{    This function parse the response received from the get\PYZus{}info() function}
+         \PY{l+s+sd}{    and treat it to filter only the number of venues in the area and retur it\PYZsq{}s number}
+         \PY{l+s+sd}{    and a list of lat and lng data in a list o lists format}
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{k}{try}\PY{p}{:}
+                 \PY{n}{points} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                 \PY{k}{if} \PY{n}{response}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venues}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}    
+                     \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{response}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venues}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                         \PY{k}{try}\PY{p}{:}
+                             \PY{n}{lat} \PY{o}{=} \PY{n}{r}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venues}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{location}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                             \PY{n}{lng} \PY{o}{=} \PY{n}{r}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venues}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{location}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lng}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                             \PY{n}{points}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{lat}\PY{p}{,} \PY{n}{lng}\PY{p}{]}\PY{p}{)}
+                         \PY{k}{except}\PY{p}{:}
+                             \PY{k}{pass}
+                     \PY{k}{return} \PY{n+nb}{len}\PY{p}{(}\PY{n}{response}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venues}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{points}
+             \PY{k}{except}\PY{p}{:}
+                 \PY{k}{pass}
+             \PY{k}{return} \PY{l+m+mi}{0}\PY{p}{,} \PY{k+kc}{None}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{k}{def} \PY{n+nf}{count\PYZus{}similar}\PY{p}{(}\PY{n}{response}\PY{p}{,} \PY{n}{similar}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Café}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cafe}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Coffe}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Coffee Shops}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{    This function parse the response received from the get\PYZus{}info() function}
+         \PY{l+s+sd}{    and count how many of then has similar text (eg: has the type we are looking for)}
+         \PY{l+s+sd}{    and retur it\PYZsq{}s number}
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{n}{total} \PY{o}{=} \PY{l+m+mi}{0} \PY{c+c1}{\PYZsh{} we start with 0 matchs  }
+             \PY{k}{try}\PY{p}{:}
+                 \PY{n}{points} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                 \PY{k}{for} \PY{n}{venue} \PY{o+ow}{in} \PY{n}{response}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venues}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}
+                     \PY{k}{for} \PY{n}{item} \PY{o+ow}{in} \PY{n}{venue}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}
+                         \PY{k}{if}  \PY{n}{item}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pluralName}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o+ow}{in} \PY{n}{similar} \PY{o+ow}{or} \PY{n}{item}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{shortName}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o+ow}{in} \PY{n}{similar} \PY{o+ow}{or} \PY{n}{item}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o+ow}{in} \PY{n}{similar}\PY{p}{:}
+                             \PY{n}{total} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                             \PY{k}{try}\PY{p}{:}
+                                 \PY{n}{lat} \PY{o}{=} \PY{n}{venue}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{location}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                                 \PY{n}{lng} \PY{o}{=} \PY{n}{venue}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{location}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lng}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                                 \PY{n}{points}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{lat}\PY{p}{,} \PY{n}{lng}\PY{p}{]}\PY{p}{)}
+                             \PY{k}{except}\PY{p}{:}
+                                 \PY{k}{pass}
+                 \PY{k}{return} \PY{n}{total}\PY{p}{,} \PY{n}{points}
+             \PY{k}{except}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mi}{0}\PY{p}{,} \PY{k+kc}{None}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{} Let\PYZsq{}s just check the functions created}
+         \PY{n}{r} \PY{o}{=} \PY{n}{get\PYZus{}info}\PY{p}{(}\PY{n}{lat\PYZus{}city\PYZus{}center}\PY{p}{,} \PY{n}{lng\PYZus{}city\PYZus{}center}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{number of coffe shops: }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{count\PYZus{}similar(r)[0]\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{number of venues in the center of the city: }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{count\PYZus{}venues(r)[0]\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{r}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venues}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{location}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+number of coffe shops: 4
+number of venues in the center of the city: 109
+-22.727424355059128
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{r}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venues}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'id': '4e6a0cbc7d8b143eb6eb28bd', 'name': 'Passarela Calçados', 'location': \{'address': 'Gov. Pedro de Toledo', 'lat': -22.727786577073832, 'lng': -47.64798471403457, 'labeledLatLngs': [\{'label': 'display', 'lat': -22.727786577073832, 'lng': -47.64798471403457\}], 'distance': 91, 'cc': 'BR', 'city': 'Piracicaba', 'state': 'SP', 'country': 'Brasil', 'formattedAddress': ['Gov. Pedro de Toledo', 'Piracicaba, SP', 'Brasil']\}, 'categories': [\{'id': '4bf58dd8d48988d1f2941735', 'name': 'Sporting Goods Shop', 'pluralName': 'Sporting Goods Shops', 'shortName': 'Sporting Goods', 'icon': \{'prefix': 'https://ss3.4sqi.net/img/categories\_v2/shops/sports\_outdoors\_', 'suffix': '.png'\}, 'primary': True\}], 'referralId': 'v-1580783590', 'hasPerk': False\}
+
+    \end{Verbatim}
+
+    Now, we will search in all the opoints in the map
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{c+c1}{\PYZsh{} the flag bellow is to avoid excess use of the api, loading the data if it already exists}
+         \PY{n}{new\PYZus{}scrap} \PY{o}{=} \PY{k+kc}{False}
+         
+         \PY{n}{filename} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{foursquare\PYZus{}data.pk}\PY{l+s+s1}{\PYZsq{}}
+         \PY{k}{if} \PY{n}{new\PYZus{}scrap}\PY{p}{:}
+             \PY{n}{full\PYZus{}response}\PY{p}{,} \PY{n}{points\PYZus{}coffe}\PY{p}{,} \PY{n}{points\PYZus{}venue} \PY{o}{=} \PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{lat} \PY{o+ow}{in} \PY{n}{lat\PYZus{}range}\PY{p}{:}
+                 \PY{n}{line} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                 \PY{k}{for} \PY{n}{lng} \PY{o+ow}{in} \PY{n}{lng\PYZus{}range}\PY{p}{:}
+                     \PY{n}{r} \PY{o}{=} \PY{n}{get\PYZus{}info}\PY{p}{(}\PY{n}{lat}\PY{p}{,} \PY{n}{lng}\PY{p}{)}
+                     \PY{n}{similar}\PY{p}{,} \PY{n}{pt\PYZus{}temp\PYZus{}cofee} \PY{o}{=} \PY{n}{count\PYZus{}similar}\PY{p}{(}\PY{n}{r}\PY{p}{)}
+                     \PY{n}{venues}\PY{p}{,} \PY{n}{pt\PYZus{}temp\PYZus{}venue} \PY{o}{=} \PY{n}{count\PYZus{}venues}\PY{p}{(}\PY{n}{r}\PY{p}{)}
+                     \PY{k}{if} \PY{n}{pt\PYZus{}temp\PYZus{}venue}\PY{p}{:}
+                         \PY{n}{points\PYZus{}venue}\PY{o}{.}\PY{n}{extend}\PY{p}{(}\PY{n}{pt\PYZus{}temp\PYZus{}venue}\PY{p}{)}
+                     \PY{k}{if} \PY{n}{pt\PYZus{}temp\PYZus{}cofee}\PY{p}{:}
+                         \PY{n}{points\PYZus{}coffe}\PY{o}{.}\PY{n}{extend}\PY{p}{(}\PY{n}{pt\PYZus{}temp\PYZus{}cofee}\PY{p}{)}
+                     \PY{n}{line}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{(}\PY{n}{similar}\PY{p}{,} \PY{n}{venues}\PY{p}{)}\PY{p}{)}
+                     \PY{n}{time}\PY{o}{.}\PY{n}{sleep}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+                 \PY{n}{full\PYZus{}response}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{line}\PY{p}{)} 
+             \PY{n}{outfile} \PY{o}{=} \PY{n+nb}{open}\PY{p}{(}\PY{n}{filename}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{pickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{p}{[}\PY{n}{full\PYZus{}response}\PY{p}{,} \PY{n}{points\PYZus{}coffe}\PY{p}{,} \PY{n}{points\PYZus{}venue}\PY{p}{]}\PY{p}{,} \PY{n}{outfile}\PY{p}{)}
+             \PY{n}{outfile}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+         \PY{k}{else}\PY{p}{:}
+             \PY{n}{infile} \PY{o}{=} \PY{n+nb}{open}\PY{p}{(}\PY{n}{filename}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{full\PYZus{}response}\PY{p}{,} \PY{n}{points\PYZus{}coffe}\PY{p}{,} \PY{n}{points\PYZus{}venue} \PY{o}{=} \PY{n}{pickle}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n}{infile}\PY{p}{)}
+             \PY{n}{infile}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{c+c1}{\PYZsh{} let\PYZsq{}s check what we got:}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{full\PYZus{}response}\PY{p}{)}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{full\PYZus{}response}\PY{p}{)}\PY{p}{,} \PY{n}{full\PYZus{}response}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'list'> 10 [(0, 190), (0, 177), (0, 186), (0, 191), (0, 178), (0, 131), (0, 155), (0, 161), (0, 113), (0, 104)]
+
+    \end{Verbatim}
+
+    \hypertarget{data-organization-and-cleanup}{%
+\subsection{3. Data organization and
+cleanup}\label{data-organization-and-cleanup}}
+
+    Let's just see the data format and visualize the results
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{c+c1}{\PYZsh{} to plot a heatmap using folium.plugins.HeatMap, we will generate a data in the expected format}
+         \PY{n}{venue\PYZus{}matrix} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{n}{number\PYZus{}x\PYZus{}points}\PY{o}{*}\PY{n}{number\PYZus{}y\PYZus{}points}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}
+         \PY{n}{coffe\PYZus{}matrix} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{n}{number\PYZus{}x\PYZus{}points}\PY{o}{*}\PY{n}{number\PYZus{}y\PYZus{}points}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} flatten the full response for easy of use}
+         \PY{n}{full\PYZus{}response\PYZus{}flat} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{itertools}\PY{o}{.}\PY{n}{chain}\PY{p}{(}\PY{o}{*}\PY{n}{full\PYZus{}response}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} now, populate the matrix with the info from \PYZdq{}full\PYZus{}response\PYZdq{} list from foursquare}
+         \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{k}{for} \PY{n}{lat} \PY{o+ow}{in} \PY{n}{lat\PYZus{}range}\PY{p}{:}
+             \PY{k}{for} \PY{n}{lng} \PY{o+ow}{in} \PY{n}{lng\PYZus{}range}\PY{p}{:}
+                 \PY{n}{coffe\PYZus{}matrix}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{lat}\PY{p}{,} \PY{n}{lng}\PY{p}{,} \PY{n}{full\PYZus{}response\PYZus{}flat}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{venue\PYZus{}matrix}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{lat}\PY{p}{,} \PY{n}{lng}\PY{p}{,} \PY{n}{full\PYZus{}response\PYZus{}flat}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{i} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{} and do some data threatment and formating}
+         
+         \PY{n}{max\PYZus{}venue} \PY{o}{=} \PY{n}{venue\PYZus{}matrix}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}
+         \PY{n}{min\PYZus{}venue} \PY{o}{=} \PY{n}{venue\PYZus{}matrix}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}
+         \PY{n}{venue\PYZus{}matrix\PYZus{}normalized} \PY{o}{=} \PY{p}{(}\PY{n}{venue\PYZus{}matrix}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{min\PYZus{}venue}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{max\PYZus{}venue} \PY{o}{\PYZhy{}} \PY{n}{min\PYZus{}venue}\PY{p}{)}
+\end{Verbatim}
+
+
+    To plot using folium heatmap, we will create a list of points in the
+expected format:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{points\PYZus{}venue} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{venue} \PY{o+ow}{in} \PY{n}{venue\PYZus{}matrix}\PY{p}{:}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{p}{(}\PY{n}{venue}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{points\PYZus{}venue}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{venue}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{venue}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{points\PYZus{}coffe} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{venue} \PY{o+ow}{in} \PY{n}{coffe\PYZus{}matrix}\PY{p}{:}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{p}{(}\PY{n}{venue}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{points\PYZus{}coffe}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{venue}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{venue}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{m\PYZus{}venues} \PY{o}{=} \PY{n}{folium}\PY{o}{.}\PY{n}{Map}\PY{p}{(}\PY{n}{location}\PY{o}{=}\PY{p}{[}\PY{n}{lat\PYZus{}city\PYZus{}center}\PY{p}{,} \PY{n}{lng\PYZus{}city\PYZus{}center}\PY{p}{]}\PY{p}{,} \PY{n}{zoom\PYZus{}start}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{)}
+         \PY{n}{m\PYZus{}venues}\PY{o}{.}\PY{n}{add\PYZus{}child}\PY{p}{(}\PY{n}{folium}\PY{o}{.}\PY{n}{plugins}\PY{o}{.}\PY{n}{HeatMap}\PY{p}{(}\PY{n}{points\PYZus{}venue}\PY{p}{,} \PY{n}{radius}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{,} \PY{n}{min\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,} \PY{n}{blur}\PY{o}{=}\PY{l+m+mi}{35}\PY{p}{,} \PY{n}{control\PYZus{}scale}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{)}
+         \PY{n}{m\PYZus{}venues}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:} <folium.folium.Map at 0x163715f1cf8>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{m\PYZus{}cofee} \PY{o}{=} \PY{n}{folium}\PY{o}{.}\PY{n}{Map}\PY{p}{(}\PY{n}{location}\PY{o}{=}\PY{p}{[}\PY{n}{lat\PYZus{}city\PYZus{}center}\PY{p}{,} \PY{n}{lng\PYZus{}city\PYZus{}center}\PY{p}{]}\PY{p}{,} \PY{n}{zoom\PYZus{}start}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{)}
+         \PY{n}{m\PYZus{}cofee}\PY{o}{.}\PY{n}{add\PYZus{}child}\PY{p}{(}\PY{n}{folium}\PY{o}{.}\PY{n}{plugins}\PY{o}{.}\PY{n}{HeatMap}\PY{p}{(}\PY{n}{points\PYZus{}coffe}\PY{p}{,} \PY{n}{radius}\PY{o}{=}\PY{l+m+mi}{70}\PY{p}{,} \PY{n}{min\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,} \PY{n}{blur}\PY{o}{=}\PY{l+m+mi}{35}\PY{p}{,} \PY{n}{control\PYZus{}scale}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{)}
+         \PY{n}{m\PYZus{}cofee}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:} <folium.folium.Map at 0x163705167b8>
+\end{Verbatim}
+            
+    if both graphs where not able to render properly (the are some known
+bugs no mozilla for the heamap generation *), here are the plots as jped
+images
+
+\begin{itemize}
+\tightlist
+\item
+  https://github.com/python-visualization/folium/issues/812
+\end{itemize}
+
+    \hypertarget{clustering}{%
+\subsection{4. Clustering}\label{clustering}}
+
+    We will use k-means and the Elbow Method to see the ammount of clusters
+for existing coffe shops and general venues
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{cluster} \PY{k}{import} \PY{n}{KMeans}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{k}{def} \PY{n+nf}{find\PYZus{}elbow\PYZus{}k}\PY{p}{(}\PY{n}{point}\PY{p}{)}\PY{p}{:}
+             \PY{n}{sse} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{kmeans} \PY{o}{=} \PY{n}{KMeans}\PY{p}{(}\PY{n}{n\PYZus{}clusters}\PY{o}{=}\PY{n}{k}\PY{p}{)}
+                 \PY{n}{kmeans}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{points\PYZus{}coffe}\PY{p}{)}
+                 \PY{n}{pred\PYZus{}clusters} \PY{o}{=} \PY{n}{kmeans}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{point}\PY{p}{)}
+                 \PY{n}{centroids} \PY{o}{=} \PY{n}{kmeans}\PY{o}{.}\PY{n}{cluster\PYZus{}centers\PYZus{}}
+                 \PY{n}{curr\PYZus{}sse} \PY{o}{=} \PY{l+m+mi}{0}
+                 \PY{c+c1}{\PYZsh{} calculate square of Euclidean distance of each point from its cluster center and add to current WSS}
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{points\PYZus{}coffe}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{curr\PYZus{}center} \PY{o}{=} \PY{n}{centroids}\PY{p}{[}\PY{n}{pred\PYZus{}clusters}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]}
+                     \PY{n}{curr\PYZus{}sse} \PY{o}{+}\PY{o}{=} \PY{p}{(}\PY{n}{point}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{curr\PYZus{}center}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2} \PY{o}{+} \PY{p}{(}\PY{n}{point}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{curr\PYZus{}center}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2}     
+                 \PY{n}{sse}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{curr\PYZus{}sse}\PY{p}{)}
+             \PY{k}{return} \PY{n}{sse}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{point} \PY{o}{=} \PY{n}{points\PYZus{}coffe}
+         \PY{n}{sse} \PY{o}{=} \PY{n}{find\PYZus{}elbow\PYZus{}k}\PY{p}{(}\PY{n}{point}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{sse}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:} [<matplotlib.lines.Line2D at 0x16372e53a58>]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_40_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We can see that 4 or 5 blobs are a good start for places with coffe
+shops
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{kmeans} \PY{o}{=} \PY{n}{KMeans}\PY{p}{(}\PY{n}{n\PYZus{}clusters}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{kmeans}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{points\PYZus{}coffe}\PY{p}{)}
+         \PY{n}{pred\PYZus{}clusters} \PY{o}{=} \PY{n}{kmeans}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{point}\PY{p}{)}
+         \PY{n}{centroids} \PY{o}{=} \PY{n}{kmeans}\PY{o}{.}\PY{n}{cluster\PYZus{}centers\PYZus{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{m\PYZus{}cofee2} \PY{o}{=} \PY{n}{folium}\PY{o}{.}\PY{n}{Map}\PY{p}{(}\PY{n}{location}\PY{o}{=}\PY{p}{[}\PY{n}{lat\PYZus{}city\PYZus{}center}\PY{p}{,} \PY{n}{lng\PYZus{}city\PYZus{}center}\PY{p}{]}\PY{p}{,} \PY{n}{zoom\PYZus{}start}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{)}
+         \PY{n}{m\PYZus{}cofee2}\PY{o}{.}\PY{n}{add\PYZus{}child}\PY{p}{(}\PY{n}{folium}\PY{o}{.}\PY{n}{plugins}\PY{o}{.}\PY{n}{HeatMap}\PY{p}{(}\PY{n}{points\PYZus{}coffe}\PY{p}{,} \PY{n}{radius}\PY{o}{=}\PY{l+m+mi}{70}\PY{p}{,} \PY{n}{min\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,} \PY{n}{blur}\PY{o}{=}\PY{l+m+mi}{35}\PY{p}{,} \PY{n}{control\PYZus{}scale}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{)}
+         \PY{k}{for} \PY{n}{centroid} \PY{o+ow}{in} \PY{n}{centroids}\PY{p}{:}
+             \PY{n}{folium}\PY{o}{.}\PY{n}{CircleMarker}\PY{p}{(}
+                 \PY{n}{centroid}\PY{p}{,}
+                 \PY{n}{radius}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,}
+                 \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{n}{fill}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}
+                 \PY{n}{fill\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{n}{fill\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.7}\PY{p}{,}
+                 \PY{n}{parse\PYZus{}html}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}to}\PY{p}{(}\PY{n}{m\PYZus{}cofee2}\PY{p}{)}
+         \PY{n}{m\PYZus{}cofee2}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}35}]:} <folium.folium.Map at 0x16372e83da0>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{point} \PY{o}{=} \PY{n}{points\PYZus{}venue}
+         \PY{n}{sse} \PY{o}{=} \PY{n}{find\PYZus{}elbow\PYZus{}k}\PY{p}{(}\PY{n}{point}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{sse}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}36}]:} [<matplotlib.lines.Line2D at 0x16372f0bf28>]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_44_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    For the general vennues, there is no direct group separations
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{kmeans} \PY{o}{=} \PY{n}{KMeans}\PY{p}{(}\PY{n}{n\PYZus{}clusters}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}
+         \PY{n}{kmeans}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{point}\PY{p}{)}
+         \PY{n}{pred\PYZus{}clusters} \PY{o}{=} \PY{n}{kmeans}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{point}\PY{p}{)}
+         \PY{n}{centroids} \PY{o}{=} \PY{n}{kmeans}\PY{o}{.}\PY{n}{cluster\PYZus{}centers\PYZus{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{m\PYZus{}cofee3} \PY{o}{=} \PY{n}{folium}\PY{o}{.}\PY{n}{Map}\PY{p}{(}\PY{n}{location}\PY{o}{=}\PY{p}{[}\PY{n}{lat\PYZus{}city\PYZus{}center}\PY{p}{,} \PY{n}{lng\PYZus{}city\PYZus{}center}\PY{p}{]}\PY{p}{,} \PY{n}{zoom\PYZus{}start}\PY{o}{=}\PY{l+m+mi}{13}\PY{p}{)}
+         \PY{n}{m\PYZus{}cofee3}\PY{o}{.}\PY{n}{add\PYZus{}child}\PY{p}{(}\PY{n}{folium}\PY{o}{.}\PY{n}{plugins}\PY{o}{.}\PY{n}{HeatMap}\PY{p}{(}\PY{n}{points\PYZus{}venue}\PY{p}{,} \PY{n}{radius}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{,} \PY{n}{min\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,} \PY{n}{blur}\PY{o}{=}\PY{l+m+mi}{35}\PY{p}{,} \PY{n}{control\PYZus{}scale}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{)}
+         \PY{k}{for} \PY{n}{centroid} \PY{o+ow}{in} \PY{n}{centroids}\PY{p}{:}
+             \PY{n}{folium}\PY{o}{.}\PY{n}{CircleMarker}\PY{p}{(}
+                 \PY{n}{centroid}\PY{p}{,}
+                 \PY{n}{radius}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,}
+                 \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{n}{fill}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}
+                 \PY{n}{fill\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{n}{fill\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.7}\PY{p}{,}
+                 \PY{n}{parse\PYZus{}html}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}to}\PY{p}{(}\PY{n}{m\PYZus{}cofee3}\PY{p}{)}
+         \PY{n}{m\PYZus{}cofee3}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}38}]:} <folium.folium.Map at 0x16372f44748>
+\end{Verbatim}
+            
+    \hypertarget{ranking}{%
+\subsection{5. Ranking}\label{ranking}}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
